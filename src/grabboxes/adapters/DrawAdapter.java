@@ -8,10 +8,9 @@ import grabboxes.drawable.BoxesStack;
 import grabboxes.drawable.Grab;
 import grabboxes.drawable.TexturedPlane;
 import grabboxes.statics.ResourceLoader;
+import processing.core.PApplet;
 
 import java.util.ArrayList;
-
-import processing.core.PApplet;
 
 public class DrawAdapter extends BaseDrawable {
 

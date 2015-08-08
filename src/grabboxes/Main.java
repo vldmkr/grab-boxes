@@ -8,42 +8,42 @@ import processing.core.PApplet;
 import processing.event.MouseEvent;
 
 public class Main extends PApplet {
-	private static final long serialVersionUID = 9192803387216155828L;
+    private static final long serialVersionUID = 9192803387216155828L;
 
-	private BackgroundManager _backgroundManager;
-	private PositionManager _positionManager;
-	private DrawAdapter _drawAdapter;
+    private BackgroundManager _backgroundManager;
+    private PositionManager _positionManager;
+    private DrawAdapter _drawAdapter;
 
-	private int operBox = 0;
-	private int operBoxWeight = 0;
+    private int operBox = 0;
+    private int operBoxWeight = 0;
 
-	public static void main(String args[]) {
-		PApplet.main(new String[] { "grabboxes.Main" });
-	}
+    public static void main(String args[]) {
+        PApplet.main(new String[]{"grabboxes.Main"});
+    }
 
-	@Override
-	public void mouseWheel(MouseEvent event) {
-		super.mouseWheel(event);
-		if (_positionManager.isSetupMode()) {
-			if (operBoxWeight >= 0 && operBoxWeight <= 99) {
-				operBoxWeight -= event.getCount();
-			} else {
-				if (operBoxWeight < 0) {
-					operBoxWeight = 0;
-				}
-				if (operBoxWeight > 99) {
-					operBoxWeight = 99;
-				}
-			}
-			_drawAdapter.changeBoxLabel(operBox, 0, operBoxWeight);
-		} else {
-			final float k = 0.2f;
-			_positionManager.changeScale(-event.getCount() * k);
-		}
-	}
+    @Override
+    public void mouseWheel(MouseEvent event) {
+        super.mouseWheel(event);
+        if (_positionManager.isSetupMode()) {
+            if (operBoxWeight >= 0 && operBoxWeight <= 99) {
+                operBoxWeight -= event.getCount();
+            } else {
+                if (operBoxWeight < 0) {
+                    operBoxWeight = 0;
+                }
+                if (operBoxWeight > 99) {
+                    operBoxWeight = 99;
+                }
+            }
+            _drawAdapter.changeBoxLabel(operBox, 0, operBoxWeight);
+        } else {
+            final float k = 0.2f;
+            _positionManager.changeScale(-event.getCount() * k);
+        }
+    }
 
-	@Override
-	public void mouseClicked() {
+    @Override
+    public void mouseClicked() {
         if (mouseButton == LEFT && _positionManager.isSetupMode()) {
             float x = (mouseX - getParent().getWidth() * 0.5f) / _positionManager.getScale();
             float z = (mouseY - getParent().getHeight() * 0.5f) / _positionManager.getScale();
@@ -80,33 +80,33 @@ public class Main extends PApplet {
         }
     }
 
-	@Override
-	public void mouseDragged() {
-		_positionManager.setPositionByMouse();
-	}
+    @Override
+    public void mouseDragged() {
+        _positionManager.setPositionByMouse();
+    }
 
-	@Override
-	public void setup() {
-		size(800, 600, P3D);
-		textSize(150);
-		ResourceLoader.Parent = this;
+    @Override
+    public void setup() {
+        size(800, 600, P3D);
+        textSize(150);
+        ResourceLoader.Parent = this;
 
-		_backgroundManager = new BackgroundManager(this);
-		_positionManager = new PositionManager(this);
-		_positionManager.setOffsetY(0.6f);
-		_positionManager.setScale(3.0f);
+        _backgroundManager = new BackgroundManager(this);
+        _positionManager = new PositionManager(this);
+        _positionManager.setOffsetY(0.6f);
+        _positionManager.setScale(3.0f);
 
-		_drawAdapter = new DrawAdapter(this);
-		_drawAdapter.setPlaneSize(100.0f);
-		_drawAdapter.setGrabPos(100.0f, -100.0f);
-	}
+        _drawAdapter = new DrawAdapter(this);
+        _drawAdapter.setPlaneSize(100.0f);
+        _drawAdapter.setGrabPos(100.0f, -100.0f);
+    }
 
-	@Override
-	public void draw() {
-		_backgroundManager.draw();
-		pushMatrix();
-		_positionManager.draw();
-		_drawAdapter.draw();
-		popMatrix();
-	}
+    @Override
+    public void draw() {
+        _backgroundManager.draw();
+        pushMatrix();
+        _positionManager.draw();
+        _drawAdapter.draw();
+        popMatrix();
+    }
 }
